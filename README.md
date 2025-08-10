@@ -1,7 +1,5 @@
 # AI Content Generation 
 
-![AI Content Generation Dashboard](public/dashboard.png)
-
 This project is an AI Content Generation Dashboard built using Next.js, Drizzle ORM, NEON PostgreSQL, Tailwind CSS, and TypeScript (tsx). The dashboard allows users to generate AI content and view their history of generated content.
 
 ## Tech Stack
