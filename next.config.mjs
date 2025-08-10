@@ -7,8 +7,16 @@
 
 // export default nextConfig;
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
+    output: 'export',
+    basePath: '/ai-content-generator',
+    assetPrefix: '/ai-content-generator/',
+    trailingSlash: true,
+    skipTrailingSlashRedirect: true,
+    distDir: 'out',
     images: {
+        unoptimized: true,
         remotePatterns: [
             {
                 protocol: 'https',
