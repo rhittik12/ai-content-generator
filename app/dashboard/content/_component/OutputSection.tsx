@@ -1,37 +1,14 @@
 "use client";
-import React, { useEffect, useRef } from 'react';
-import '@toast-ui/editor/dist/toastui-editor.css';
-import dynamic from 'next/dynamic';
+import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Copy } from 'lucide-react';
-
-const Editor = dynamic(
-  () => import('@toast-ui/react-editor').then(mod => mod.Editor),
-  { ssr: false }
-);
+import ReactMarkdown from 'react-markdown';
 
 interface PROPS {
   aiOutput: string;
 }
 
 function OutputSection({ aiOutput }: PROPS) {
-  const editorRef: any = useRef();
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (editorRef.current && aiOutput) {
-        try {
-          const editorInstance = editorRef.current.getInstance();
-          editorInstance.setMarkdown(aiOutput || '');
-        } catch (error) {
-          console.error('Editor error:', error);
-        }
-      }
-    }, 100); // Small delay to ensure editor is ready
-
-    return () => clearTimeout(timer);
-  }, [aiOutput]);
-
   const handleCopy = () => {
     navigator.clipboard.writeText(aiOutput);
     alert('Content copied to clipboard!');
@@ -55,16 +32,8 @@ function OutputSection({ aiOutput }: PROPS) {
           <p>✨ Generated content will appear here...</p>
         </div>
       ) : (
-        <div className="p-5">
-          <Editor
-            ref={editorRef}
-            initialValue={aiOutput || "Loading content..."}
-            height="500px"
-            initialEditType="markdown"
-            previewStyle="vertical"
-            useCommandShortcut={true}
-            key={aiOutput} // Force re-render when content changes
-          />
+        <div className="p-5 prose max-w-none">
+          <ReactMarkdown>{aiOutput}</ReactMarkdown>
         </div>
       )}
     </div>
